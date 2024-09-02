@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Doctor>
+
+<div style="margin:0px 200px 0px 200px">
+    <div style="display:flex; gap:-20px;align-items:center">
+        @foreach (var item in Model.Take(3))
+        {
+            <div style="flex:1; text-align:center">
+                    <img src="@item.ImageURL" class="img-fluid" alt="@item.FirstName @item.LastName" style="max-width: 50%; height: auto; border-radius:50%" />
+                    <p>@item.FirstName @item.LastName</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+
+</style>
