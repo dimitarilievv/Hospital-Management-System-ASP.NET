@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Doctor>
+﻿@model Hospital_Management_System_ASP.NET.Models.DoctorAndDepartmentModelView
 @using System.Web.UI.WebControls
 @{
     ViewBag.Title = "Home Page";
@@ -12,7 +12,7 @@
             <ul class="main-nav js-main-nav">
                 <li><a href="#Home">Home</a></li>
                 <li><a href="#doctors">Doctors</a></li>
-                <li><a href="#about">Departments</a></li>
+                <li><a href="#departments">Departments</a></li>
                 <li><a href="@Url.Action("Register", "Account")">Register</a></li>
                 <li><a href="@Url.Action("Login", "Account")">Sign In</a></li>
             </ul>
@@ -37,35 +37,16 @@
         </p>
     </div>
     <div class="row js-wp-1">
-        @Html.Partial("DoctorsPartialView", Model)
+        @Html.Partial("DoctorsPartialView", Model.Doctors)
     </div>
 </section>
 
-<section class="section-steps" id="about">
+<section class="section-steps" id="departments">
     <div class="row">
-        <h2>About Us &mdash; Our Vision</h2>
+        <h2>Medical specialties &mdash; Comprehensive coverage</h2>
     </div>
     <div class="row">
-        <div class="col span-1-of-2 step-box">
-            <img src="~/Content/Layout/resources/img/app-iPhone.png" alt="Omnifood app on iphone" class="app-screen js-wp-2">
-        </div>
-        <div class="col span-1-of-2 step-box">
-            <div class="works-step">
-                <div>1</div>
-                <p>Hopital Management System (HMS) is open to all patients every day and provides fundamental medical care and cutting-edge medicine.</p>
-            </div>
-            <div class="works-step">
-                <div>2</div>
-                <p>We use our academic knowledge to treat a wide range of health issues, taking a personal touch and utilizing highly specialized and up-to-date research.</p>
-            </div>
-            <div class="works-step">
-                <div>3</div>
-                <p>
-                    We will innovate and define the future of health care for generations
-                    and will be the consumer's first choice for health care.
-                </p>
-            </div>
-        </div>
+        @Html.Partial("DepartmentsPartialView", Model.Departments)
     </div>
 </section>
 
@@ -75,11 +56,11 @@
     <div class="row">
         <div class="col span-1-of-2">
             <ul class="footer-nav">
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Press</a></li>
-                <li><a href="#">IOS App</a></li>
-                <li><a href="#">Andriod App</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="~/Doctors/Index">Doctors</a></li>
+                <li><a href="~/Departments/Index">Departments</a></li>
+                <li><a href="@Url.Action("Login", "Account")">Sign in</a></li>
+                <li><a href="@Url.Action("Register", "Account")">Register</a></li>
             </ul>
         </div>
         <div class="col span-1-of-2">

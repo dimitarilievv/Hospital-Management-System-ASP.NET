@@ -189,11 +189,16 @@
     <Compile Include="Migrations\202408311724355_Initial3.designer.cs">
       <DependentUpon>202408311724355_Initial3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409030802276_Migration4.cs" />
+    <Compile Include="Migrations\202409030802276_Migration4.designer.cs">
+      <DependentUpon>202409030802276_Migration4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\DoctorAndDepartmentModelView.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />
@@ -290,6 +295,7 @@
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Home\DoctorsPartialView.cshtml" />
+    <Content Include="Views\Home\DepartmentsPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408311724355_Initial3.resx">
       <DependentUpon>202408311724355_Initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409030802276_Migration4.resx">
+      <DependentUpon>202409030802276_Migration4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

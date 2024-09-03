@@ -12,8 +12,12 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var doctors = db.Doctors.ToList();
-            return View(doctors);
+            var model = new DoctorAndDepartmentModelView
+            {
+                Doctors = db.Doctors.ToList(),
+                Departments = db.Departments.ToList()
+            };
+            return View(model);
         }
 
         public ActionResult About()
