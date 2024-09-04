@@ -1,6 +1,10 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
-    margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }

@@ -48,7 +48,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {

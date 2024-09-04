@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Doctor>
+
+@{
+    ViewBag.Title = "Available Doctors";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h2>Available Doctors</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="table_id" class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                Department name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageURL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <img src="@item.ImageURL" style="max-width:70px" />
+                </td>
+                <td>
+                    @Html.ActionLink("Book this doctor", "AddAppointment", new { id = item.DoctorId }) |
+                    @Html.ActionLink("Details", "DoctorDetails", new { id = item.DoctorId })
+                </td>
+                @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.DoctorId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId })
+        </td>*@
+            </tr>
+        }
+    </tbody>
+
+   
+
+</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#table_id").dataTable();
+        });
+    </script>
+}

@@ -111,3 +111,4 @@ C:\Users\dimit\Desktop\Hospital Management System ASP.NET\Hospital Management Sy
 C:\Users\dimit\Desktop\Hospital Management System ASP.NET\Hospital Management System ASP.NET\obj\Debug\Hospital_Management_System_ASP.NET.Migrations.Initial2.resources
 C:\Users\dimit\Desktop\Hospital Management System ASP.NET\Hospital Management System ASP.NET\obj\Debug\Hospital_Management_System_ASP.NET.Migrations.Initial3.resources
 C:\Users\dimit\Desktop\Hospital Management System ASP.NET\Hospital Management System ASP.NET\obj\Debug\Hospital_Management_System_ASP.NET.Migrations.Migration4.resources
+C:\Users\dimit\Desktop\Hospital Management System ASP.NET\Hospital Management System ASP.NET\obj\Debug\Hospital_Management_System_ASP.NET.Migrations.Migration5.resources

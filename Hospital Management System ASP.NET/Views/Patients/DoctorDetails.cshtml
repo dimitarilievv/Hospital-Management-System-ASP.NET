@@ -1,0 +1,66 @@
+﻿@model Hospital_Management_System_ASP.NET.Models.Doctor
+
+@{
+    ViewBag.Title = "DoctorDetails";
+}
+
+<h2>Doctor Details</h2>
+
+<table style="text-align:center; margin-left:500px;margin:auto">
+    <thead>
+        <tr>
+            <th><h3>Field</h3></th>
+            <th><h3>Details</h3></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <td>@Html.DisplayFor(model => model.FirstName)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <td>@Html.DisplayFor(model => model.LastName)</td>
+        </tr>
+        <tr>
+            <th>Department Name</th>
+            <td>@Html.DisplayFor(model => model.Department.Name)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Specialization)</th>
+            <td>@Html.DisplayFor(model => model.Specialization)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EmailAddress)</th>
+            <td>@Html.DisplayFor(model => model.EmailAddress)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Gender)</th>
+            <td>@Html.DisplayFor(model => model.Gender)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+            <td>@Html.DisplayFor(model => model.DateOfBirth)</td>
+        </tr>
+
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PhoneNo)</th>
+            <td>@Html.DisplayFor(model => model.PhoneNo)</td>
+        </tr>
+
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ImageURL)</th>
+            <td><img src="@Model.ImageURL" style="max-width:105px"</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <td>@Html.DisplayFor(model => model.Status)</td>
+        </tr>
+
+    </tbody>
+
+</table>
+<h3 style="text-align: center; margin-left: 570px; margin: auto;margin-top:20px">
+    @Html.ActionLink("Back to List", "AvailableDoctors")
+</h3>

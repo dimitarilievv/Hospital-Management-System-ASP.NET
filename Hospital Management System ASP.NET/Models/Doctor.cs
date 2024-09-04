@@ -38,6 +38,8 @@ namespace Hospital_Management_System_ASP.NET.Models
         [Display(Name = "Doctor Image")]
         public string ImageURL { get; set; }
 
+        public string Status { get; set; }
+
         public Department Department { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<Patient> Patients { get; set; }

@@ -41,6 +41,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ImageURL)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
         <th></th>
     </tr>
 
@@ -73,8 +76,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Specialization)
         </td>
+
         <td>
             <img src="@item.ImageURL" style="max-width:100px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.DoctorId }) |

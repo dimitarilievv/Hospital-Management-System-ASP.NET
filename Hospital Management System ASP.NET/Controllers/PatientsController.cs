@@ -34,6 +34,21 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             }
             return View(patient);
         }
+        public ActionResult DoctorDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var doctors = db.Doctors.Include(d => d.Department).ToList();
+            Doctor doctor = doctors.ElementAt((int)id-1);
+            if (doctor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(doctor);
+        }
+
 
         // GET: Patients/Create
         public ActionResult Create()
@@ -103,7 +118,19 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             }
             return View(patient);
         }
+        public ActionResult AvailableDoctors()
+        {
+            var doctors = db.Doctors.Include(d => d.Department).Where(d=>d.Status.Equals("Active"));
+            return View(doctors.ToList());
+        }
+        //public ActionResult AddAppointment(int id)
+        //{
+        //    Patient patient = db.Patients.Find(id);
+        //    patient.Appointments.Add(new Appointment()
+        //    {
 
+        //    })
+        //}
         // POST: Patients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
