@@ -17,6 +17,7 @@ namespace Hospital_Management_System_ASP.NET.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public string FullName { get; set; }
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; }
@@ -43,5 +44,13 @@ namespace Hospital_Management_System_ASP.NET.Models
         public Department Department { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<Patient> Patients { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+        public string ApplicationUserId { get; set; }
+
+        public Doctor()
+        {
+            FullName=FirstName + " " + LastName;
+        }
     }
 }

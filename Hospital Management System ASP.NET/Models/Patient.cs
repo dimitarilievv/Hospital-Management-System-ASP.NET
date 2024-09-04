@@ -31,5 +31,8 @@ namespace Hospital_Management_System_ASP.NET.Models
 
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<Doctor> Doctors { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }

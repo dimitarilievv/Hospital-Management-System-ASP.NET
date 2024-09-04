@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Hospital_Management_System_ASP.NET.Models;
+using Hospital_Management_System_ASP.NET.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Hospital_Management_System_ASP.NET.Controllers
 {
@@ -40,12 +42,15 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var doctors = db.Doctors.Include(d => d.Department).ToList();
-            Doctor doctor = doctors.ElementAt((int)id-1);
+
+            Doctor doctor = db.Doctors.Include(d => d.Department)
+                                      .FirstOrDefault(d => d.DoctorId == id);
+
             if (doctor == null)
             {
                 return HttpNotFound();
             }
+
             return View(doctor);
         }
 
@@ -123,14 +128,47 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             var doctors = db.Doctors.Include(d => d.Department).Where(d=>d.Status.Equals("Active"));
             return View(doctors.ToList());
         }
-        //public ActionResult AddAppointment(int id)
-        //{
-        //    Patient patient = db.Patients.Find(id);
-        //    patient.Appointments.Add(new Appointment()
-        //    {
 
-        //    })
-        //}
+        public ActionResult AddAppointment()
+        {
+            var collection = new AppointmentViewModel
+            {
+                Appointment = new Appointment(),
+                Doctors = db.Doctors.ToList()
+            };
+            return View(collection);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAppointment(AppointmentViewModel model)
+        {
+            var collection = new AppointmentViewModel
+            {
+                Appointment = model.Appointment,
+                Doctors = db.Doctors.ToList()
+            };
+            if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
+            {
+                string user = User.Identity.GetUserId();
+                var patient = db.Patients.Single(c => c.ApplicationUserId == user);
+                var appointment = new Appointment();
+                appointment.PatientId = patient.PatientId;
+                appointment.DoctorId = model.Appointment.DoctorId;
+                appointment.AppointmentTime = model.Appointment.AppointmentTime;
+                appointment.Problem = model.Appointment.Problem;
+                appointment.Status = "false";
+
+                db.Appointments.Add(appointment);
+                db.SaveChanges();
+                return RedirectToAction("ListOfAppointments");
+            }
+            ViewBag.Messege = "Please Enter the Date greater than today or equal!!";
+
+            return View(collection);
+
+        }
+
         // POST: Patients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

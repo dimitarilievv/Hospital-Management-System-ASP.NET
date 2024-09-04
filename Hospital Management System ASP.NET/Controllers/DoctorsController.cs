@@ -48,16 +48,18 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "DoctorId,FirstName,FullName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
         {
+            doctor.FullName = doctor.FirstName + " " + doctor.LastName;
             if (ModelState.IsValid)
             {
                 db.Doctors.Add(doctor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+            
             return View(doctor);
         }
 
@@ -74,6 +76,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 return HttpNotFound();
             }
             ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+            
             return View(doctor);
         }
 
@@ -82,7 +85,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,FullName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {

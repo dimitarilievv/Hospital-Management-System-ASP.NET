@@ -197,12 +197,21 @@
     <Compile Include="Migrations\202409041028356_Migration5.designer.cs">
       <DependentUpon>202409041028356_Migration5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409041338289_Migration6.cs" />
+    <Compile Include="Migrations\202409041338289_Migration6.designer.cs">
+      <DependentUpon>202409041338289_Migration6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409041432553_Migration7.cs" />
+    <Compile Include="Migrations\202409041432553_Migration7.designer.cs">
+      <DependentUpon>202409041432553_Migration7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Doctor.cs" />
-    <Compile Include="Models\DoctorAndDepartmentModelView.cs" />
+    <Compile Include="ViewModels\AppointmentViewModel.cs" />
+    <Compile Include="ViewModels\DoctorAndDepartmentModelView.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />
@@ -303,6 +312,7 @@
     <Content Include="Views\Shared\_PatientLayout.cshtml" />
     <Content Include="Views\Patients\AvailableDoctors.cshtml" />
     <Content Include="Views\Patients\DoctorDetails.cshtml" />
+    <Content Include="Views\Patients\AddAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -350,6 +360,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409041028356_Migration5.resx">
       <DependentUpon>202409041028356_Migration5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409041338289_Migration6.resx">
+      <DependentUpon>202409041338289_Migration6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409041432553_Migration7.resx">
+      <DependentUpon>202409041432553_Migration7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
