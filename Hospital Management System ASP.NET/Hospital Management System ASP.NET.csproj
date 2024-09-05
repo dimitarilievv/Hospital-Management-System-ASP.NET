@@ -313,6 +313,10 @@
     <Content Include="Views\Patients\AvailableDoctors.cshtml" />
     <Content Include="Views\Patients\DoctorDetails.cshtml" />
     <Content Include="Views\Patients\AddAppointment.cshtml" />
+    <Content Include="Views\Patients\ListOfAppointments.cshtml" />
+    <Content Include="Views\Patients\EditAppointment.cshtml" />
+    <Content Include="Views\Patients\DeleteAppointment.cshtml" />
+    <Content Include="Views\Patients\UpdateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

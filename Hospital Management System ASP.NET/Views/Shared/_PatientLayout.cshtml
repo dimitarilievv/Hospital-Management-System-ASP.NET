@@ -48,6 +48,12 @@
         <div class="divider"></div>
         <ul class="nav menu">
             <li>
+                <button class="collapsible"><em class="fa fa-user-o">&nbsp; &nbsp;</em>Profile</button>
+                <div style="width: 100% !important" class="children content">
+                    @Html.ActionLink("Update Profile", "UpdateProfile", "Patients", null, new { @class = "list-group-item", @style = "margin: 0px -20px; font-size: 13px" })
+                </div>
+            </li>
+            <li>
                 <button class="collapsible"><em class="fa fa-user-md">&nbsp; &nbsp;</em>Doctors</button>
                 <div style="width: 100% !important" class="children content">
                     @Html.ActionLink("Available Doctors", "AvailableDoctors", "Patients", null, new { @class = "list-group-item", @style = "margin: 0px -20px; font-size: 13px" })

@@ -2,11 +2,12 @@
 
 @{
     ViewBag.Title = "DoctorDetails";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
 }
 
 <h2>Doctor Details</h2>
 
-<table style="text-align:center; margin-left:500px;margin:auto">
+<table style="text-align:center; margin-left:40px">
     <thead>
         <tr>
             <th><h3>Field</h3></th>
@@ -61,6 +62,6 @@
     </tbody>
 
 </table>
-<h3 style="text-align: center; margin-left: 570px; margin: auto;margin-top:20px">
+<h3 style=" margin-left: 90px;margin-top:20px">
     @Html.ActionLink("Back to List", "AvailableDoctors")
 </h3>
