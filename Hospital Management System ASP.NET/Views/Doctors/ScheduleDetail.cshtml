@@ -1,0 +1,148 @@
+﻿@model Hospital_Management_System_ASP.NET.Models.Schedule
+@*    @{
+        ViewBag.Title = "ScheduleDetail";
+        Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+    }
+
+    <h2>ScheduleDetail</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Schedule</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AvailableStartDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AvailableStartDay, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AvailableStartDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AvailableEndDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AvailableEndDay, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AvailableEndDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AvailableStartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AvailableStartTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                    @Html.ValidationMessageFor(model => model.AvailableStartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AvailableEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AvailableEndTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                    @Html.ValidationMessageFor(model => model.AvailableEndTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimePerPatient, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimePerPatient, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimePerPatient, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@{
+    ViewBag.Title = "ScheduleDetail";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+    
+
+<h2>Schedule Detail</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableStartDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableStartDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableEndDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableEndDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableStartTime)
+        </dt>
+
+        <dd>
+            @Model.AvailableStartTime.ToShortTimeString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableEndTime)
+        </dt>
+
+        <dd>
+            @Model.AvailableEndTime.ToShortTimeString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimePerPatient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimePerPatient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            Edit
+        </dt>
+
+        <dd>
+            <a href="@Url.Action("EditSchedule", new {id = Model.Id})" class="fa fa-pencil-square-o" style="font-size: 19px"></a>
+        </dd>
+    </dl>
+</div>
+

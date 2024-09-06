@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Hospital_Management_System_ASP.NET.Models;
+using System.Collections.Generic;
+using System.Net.Mail;
 
 namespace Hospital_Management_System_ASP.NET.Controllers
 {
@@ -403,6 +405,33 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             return View();
         }
 
+        //Add user to role action
+        //GET: /Account/AddUserToRole
+        public ActionResult AddUserToRole()
+        {
+            AddToRoleModel model = new AddToRoleModel();
+            model.Roles = new List<string>() { "Admin", "Doctor", "Patient" };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddUserToRole(AddToRoleModel model)
+        {
+            var email = model.Email;
+            var user = UserManager.FindByEmail(email);
+            if (user == null)
+            {
+                throw new HttpException(404, "There is no user with email: " + email);
+            }
+            UserManager.AddToRole(user.Id, model.SelectedRole);
+            if (model.SelectedRole == "Patient")
+                return RedirectToAction("Index", "Patients");
+            else if (model.SelectedRole == "Doctor")
+                return RedirectToAction("Index", "Doctors");
+            else
+                return RedirectToAction("Index", "Admin");
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

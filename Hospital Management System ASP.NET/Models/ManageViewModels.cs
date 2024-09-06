@@ -5,6 +5,12 @@ using Microsoft.Owin.Security;
 
 namespace Hospital_Management_System_ASP.NET.Models
 {
+    public class AddToRoleModel
+    {
+        public string Email { get; set; }
+        public List<string> Roles { get; set; }
+        public string SelectedRole { get; set; }
+    }
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

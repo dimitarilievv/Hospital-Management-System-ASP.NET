@@ -1,0 +1,22 @@
+﻿@model Hospital_Management_System_ASP.NET.Models.AddToRoleModel
+@{
+    ViewBag.Title = "AddUserToRole";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h2>AddUserToRole</h2>
+
+
+<h2>Add user with this email to role: </h2>
+@using (Html.BeginForm("AddUserToRole", "Account"))
+{
+    <div class="form-group">
+        @Html.LabelFor(z => z.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    </div>
+    <div class"form-group">
+        @Html.DropDownListFor(z => z.SelectedRole, new SelectList(Model.Roles), new { @class =
+        "form-control" })
+    </div>
+    <button type="submit" class="btn btn-default">Save</button>
+}

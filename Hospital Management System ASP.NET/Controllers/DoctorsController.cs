@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Hospital_Management_System_ASP.NET.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Hospital_Management_System_ASP.NET.Controllers
 {
@@ -44,8 +45,6 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         }
 
         // POST: Doctors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DoctorId,FirstName,FullName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
@@ -81,8 +80,6 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         }
 
         // POST: Doctors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,FullName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
@@ -123,6 +120,89 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             return RedirectToAction("Index");
         }
 
+        //Update profile
+        public ActionResult UpdateProfile(string id)
+        {
+            var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
+            return View(doctor);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProfile(string id, Doctor model)
+        {
+            var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
+            doctor.FirstName = model.FirstName;
+            doctor.LastName = model.LastName;
+            doctor.EmailAddress = model.EmailAddress;
+            doctor.Address = model.Address;
+            doctor.Specialization = model.Specialization;
+            doctor.ImageURL = model.ImageURL;
+            doctor.DateOfBirth = model.DateOfBirth;
+            doctor.Gender = model.Gender;
+            doctor.PhoneNo = model.PhoneNo;
+            doctor.Status = model.Status;
+            db.SaveChanges();
+            return View();
+        }
+
+        //Schedule part
+        //Your Schedule
+        //public ActionResult ScheduleDetail()
+        //{
+        //    string user = User.Identity.GetUserId();
+        //    var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
+        //    var schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
+        //    return View(schedule);
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ScheduleDetail(int id, Schedule model)
+        //{
+        //    var schedule = db.Schedules.Single(c => c.Id == id);
+
+        //    schedule.DoctorId = model.DoctorId;
+        //    schedule.AvailableStartDay = model.AvailableStartDay;
+        //    schedule.AvailableEndDay = model.AvailableEndDay;
+        //    schedule.AvailableStartTime = model.AvailableStartTime;
+        //    schedule.AvailableEndTime = model.AvailableEndTime;
+        //    schedule.TimePerPatient = model.TimePerPatient;
+        //    schedule.Status = model.Status;
+
+        //    db.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
+        public ActionResult ScheduleDetail()
+        {
+            string user = User.Identity.GetUserId();
+            var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
+            var schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
+            return View(schedule);
+        }
+
+        //Edit Schedule
+        [Authorize(Roles = "Doctor")]
+        public ActionResult EditSchedule(int id)
+        {
+            var schedule = db.Schedules.Single(c => c.Id == id);
+            return View(schedule);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSchedule(int id, Schedule model)
+        {
+            var schedule = db.Schedules.Single(c => c.Id == id);
+            schedule.AvailableEndDay = model.AvailableEndDay;
+            schedule.AvailableEndTime = model.AvailableEndTime;
+            schedule.AvailableStartDay = model.AvailableStartDay;
+            schedule.AvailableStartTime = model.AvailableStartTime;
+            schedule.Status = model.Status;
+            schedule.TimePerPatient = model.TimePerPatient;
+            db.SaveChanges();
+            return RedirectToAction("ScheduleDetail");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
