@@ -15,113 +15,24 @@ namespace Hospital_Management_System_ASP.NET.Controllers
     public class PatientsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: Patients
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
-        }
-
-        // GET: Patients/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
-            {
-                return HttpNotFound();
-            }
-            return View(patient);
-        }
-        // GET: Patients/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Patients/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PatientId,FirstName,LastName,DateOfBirth,Gender,Address,EmailAddress,PhoneNo,BloodGroup")] Patient patient)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Patients.Add(patient);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(patient);
-        }
-
-        // GET: Patients/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
-            {
-                return HttpNotFound();
-            }
-            return View(patient);
-        }
-
-        // POST: Patients/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PatientId,FirstName,LastName,DateOfBirth,Gender,Address,EmailAddress,PhoneNo,BloodGroup")] Patient patient)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(patient).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(patient);
-        }
-
-        // GET: Patients/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
-            {
-                return HttpNotFound();
-            }
-            return View(patient);
-        }
-        // POST: Patients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Patient patient = db.Patients.Find(id);
-            db.Patients.Remove(patient);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("UpdateProfile");
         }
         //UPDATE PROFILE PART
-
-        public ActionResult UpdateProfile(string id)
+        [Authorize(Roles = "Patient")]
+        public ActionResult UpdateProfile()
         {
+            string id=User.Identity.GetUserId();
             var patient = db.Patients.Single(c => c.ApplicationUserId == id);
             return View(patient);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateProfile(string id, Patient model)
+        public ActionResult UpdateProfile(Patient model)
         {
+            string id = User.Identity.GetUserId();
             var patient = db.Patients.Single(c => c.ApplicationUserId == id);
             patient.FirstName = model.FirstName;
             patient.LastName = model.LastName;
@@ -141,6 +52,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         //DOCTORS PART
 
         //GET: Patients/AvailableDoctors
+        [Authorize(Roles = "Patient")]
         public ActionResult AvailableDoctors()
         {
             var doctors = db.Doctors.Include(d => d.Department).Where(d => d.Status.Equals("Active"));
@@ -149,6 +61,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
 
 
         //GET: Patients/DoctorDetails/1
+        [Authorize(Roles = "Patient")]
         public ActionResult DoctorDetails(int? id)
         {
             if (id == null)
@@ -170,6 +83,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         //APPOINTMENTS PART
 
         //GET: Patients/AddAppointment
+        [Authorize(Roles = "Patient")]
         public ActionResult AddAppointment()
         {
             var collection = new AppointmentViewModel
@@ -211,6 +125,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         }
 
         //GET: Patients/ListOfAppointments
+        [Authorize(Roles = "Patient")]
         public ActionResult ListOfAppointments()
         {
             string user = User.Identity.GetUserId();
@@ -221,6 +136,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
 
 
         //GET: Patients/EditAppointment/1
+        [Authorize(Roles = "Patient")]
         public ActionResult EditAppointment(int id)
         {
             var collection = new AppointmentViewModel
@@ -255,6 +171,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
 
 
         //GET: Patients/DeleteAppointment/1
+        [Authorize(Roles = "Patient")]
         public ActionResult DeleteAppointment(int? id)
         {
             var appointment = db.Appointments.Single(c => c.AppointmentId == id);

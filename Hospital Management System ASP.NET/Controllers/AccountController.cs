@@ -17,11 +17,13 @@ namespace Hospital_Management_System_ASP.NET.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -81,7 +83,25 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (UserManager.IsInRole(user.Id, "Doctor"))
+                    {
+                        return RedirectToAction("UpdateProfile", "Doctors");
+                    }
+                    else if (UserManager.IsInRole(user.Id, "Patient"))
+                    {
+                      
+                            return RedirectToAction("UpdateProfile", "Patients");
+                        
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -158,14 +178,17 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    var patient = new Patient { FirstName = model.FirstName, LastName = model.LastName, EmailAddress = model.Email, ApplicationUserId = user.Id };
+                    db.Patients.Add(patient);
+                    db.SaveChanges();
+                    await UserManager.AddToRoleAsync(user.Id, "Patient");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -407,7 +430,9 @@ namespace Hospital_Management_System_ASP.NET.Controllers
 
         //Add user to role action
         //GET: /Account/AddUserToRole
+        [AllowAnonymous]
         public ActionResult AddUserToRole()
+        
         {
             AddToRoleModel model = new AddToRoleModel();
             model.Roles = new List<string>() { "Admin", "Doctor", "Patient" };
@@ -415,19 +440,47 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddUserToRole(AddToRoleModel model)
         {
             var email = model.Email;
             var user = UserManager.FindByEmail(email);
+            //LoginViewModel model
+           // var user = await UserManager.FindAsync(model.Email, model.Password);
             if (user == null)
             {
                 throw new HttpException(404, "There is no user with email: " + email);
             }
-            UserManager.AddToRole(user.Id, model.SelectedRole);
+
+            
             if (model.SelectedRole == "Patient")
-                return RedirectToAction("Index", "Patients");
+            {
+                UserManager.AddToRole(user.Id, model.SelectedRole);
+                return RedirectToAction("UpdateProfile", "Patients");
+            }  
             else if (model.SelectedRole == "Doctor")
-                return RedirectToAction("Index", "Doctors");
+            {
+                UserManager.AddToRole(user.Id, model.SelectedRole);
+                Patient patient=db.Patients.FirstOrDefault(p => p.ApplicationUserId == user.Id);
+                if (patient == null)
+                {
+                    ModelState.AddModelError("", "Patient not found in the database.");
+                    return View(model);
+                }
+
+                Doctor doctor = new Doctor();
+                doctor.FirstName = patient.FirstName;
+                doctor.LastName = patient.LastName;
+                doctor.EmailAddress= patient.EmailAddress;
+                doctor.ApplicationUserId = user.Id;
+                doctor.DepartmentId = 1;
+              
+                db.Doctors.Add(doctor);
+                db.Patients.Remove(patient);
+                db.SaveChanges();
+                return RedirectToAction("UpdateProfile", "Doctors");
+            }
+      
             else
                 return RedirectToAction("Index", "Admin");
 

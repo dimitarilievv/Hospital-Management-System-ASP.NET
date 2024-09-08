@@ -16,6 +16,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Doctors
+        [Authorize(Roles = "Doctor")]
         public ActionResult Index()
         {
             var doctors = db.Doctors.Include(d => d.Department);
@@ -121,16 +122,19 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         }
 
         //Update profile
-        public ActionResult UpdateProfile(string id)
+        [Authorize(Roles = "Doctor")]
+        public ActionResult UpdateProfile()
         {
+            string id = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
             return View(doctor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateProfile(string id, Doctor model)
+        public ActionResult UpdateProfile(Doctor model)
         {
+            string id = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
             doctor.FirstName = model.FirstName;
             doctor.LastName = model.LastName;
@@ -143,36 +147,10 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             doctor.PhoneNo = model.PhoneNo;
             doctor.Status = model.Status;
             db.SaveChanges();
-            return View();
+            return RedirectToAction("UpdateProfile", new { id = doctor.ApplicationUserId });
         }
 
-        //Schedule part
-        //Your Schedule
-        //public ActionResult ScheduleDetail()
-        //{
-        //    string user = User.Identity.GetUserId();
-        //    var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
-        //    var schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
-        //    return View(schedule);
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ScheduleDetail(int id, Schedule model)
-        //{
-        //    var schedule = db.Schedules.Single(c => c.Id == id);
-
-        //    schedule.DoctorId = model.DoctorId;
-        //    schedule.AvailableStartDay = model.AvailableStartDay;
-        //    schedule.AvailableEndDay = model.AvailableEndDay;
-        //    schedule.AvailableStartTime = model.AvailableStartTime;
-        //    schedule.AvailableEndTime = model.AvailableEndTime;
-        //    schedule.TimePerPatient = model.TimePerPatient;
-        //    schedule.Status = model.Status;
-
-        //    db.SaveChanges();
-
-        //    return RedirectToAction("Index");
-        //}
+        [Authorize(Roles = "Doctor")]
         public ActionResult ScheduleDetail()
         {
             string user = User.Identity.GetUserId();

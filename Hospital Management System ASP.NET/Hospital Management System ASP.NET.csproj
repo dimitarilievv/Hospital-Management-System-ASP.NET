@@ -209,6 +209,14 @@
     <Compile Include="Migrations\202409060934371_Authentication.designer.cs">
       <DependentUpon>202409060934371_Authentication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409061018153_Migration9.cs" />
+    <Compile Include="Migrations\202409061018153_Migration9.designer.cs">
+      <DependentUpon>202409061018153_Migration9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409081715186_Migration10.cs" />
+    <Compile Include="Migrations\202409081715186_Migration10.designer.cs">
+      <DependentUpon>202409081715186_Migration10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -301,11 +309,7 @@
     <Content Include="Views\Doctors\Details.cshtml" />
     <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Doctors\Index.cshtml" />
-    <Content Include="Views\Patients\Create.cshtml" />
-    <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
-    <Content Include="Views\Patients\Edit.cshtml" />
-    <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\Departments\Create.cshtml" />
     <Content Include="Views\Departments\Delete.cshtml" />
     <Content Include="Views\Departments\Details.cshtml" />
@@ -330,6 +334,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Layout\resources\css\img\" />
+    <Folder Include="Views\AllPatients\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -382,6 +387,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409060934371_Authentication.resx">
       <DependentUpon>202409060934371_Authentication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409061018153_Migration9.resx">
+      <DependentUpon>202409061018153_Migration9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409081715186_Migration10.resx">
+      <DependentUpon>202409081715186_Migration10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,17 +21,14 @@ namespace Hospital_Management_System_ASP.NET.Models
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; }
-        [Required]
         public string Gender { get; set; }
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }
         public string Address { get; set; }
-        [Required]
         [Display(Name = "Phone No")]
         public string PhoneNo { get; set; }
-        [Required]
         public string Specialization { get; set; }
 
         [Display(Name = "Department")]
