@@ -217,6 +217,14 @@
     <Compile Include="Migrations\202409081715186_Migration10.designer.cs">
       <DependentUpon>202409081715186_Migration10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409091027020_Migration11.cs" />
+    <Compile Include="Migrations\202409091027020_Migration11.designer.cs">
+      <DependentUpon>202409091027020_Migration11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409091132017_Migration12.cs" />
+    <Compile Include="Migrations\202409091132017_Migration12.designer.cs">
+      <DependentUpon>202409091132017_Migration12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -304,10 +312,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Doctors\Create.cshtml" />
-    <Content Include="Views\Doctors\Delete.cshtml" />
-    <Content Include="Views\Doctors\Details.cshtml" />
-    <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Doctors\Index.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
     <Content Include="Views\Departments\Create.cshtml" />
@@ -330,6 +334,12 @@
     <Content Include="Views\Doctors\ScheduleDetail.cshtml" />
     <Content Include="Views\Doctors\EditSchedule.cshtml" />
     <Content Include="Views\Account\AddUserToRole.cshtml" />
+    <Content Include="Views\Doctors\ActiveAppointments.cshtml" />
+    <Content Include="Views\Doctors\PendingAppointments.cshtml" />
+    <Content Include="Views\Doctors\AddAppointment.cshtml" />
+    <Content Include="Views\Doctors\EditAppointment.cshtml" />
+    <Content Include="Views\Doctors\DetailOfAppointment.cshtml" />
+    <Content Include="Views\Doctors\DeleteAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -393,6 +403,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409081715186_Migration10.resx">
       <DependentUpon>202409081715186_Migration10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409091027020_Migration11.resx">
+      <DependentUpon>202409091027020_Migration11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409091132017_Migration12.resx">
+      <DependentUpon>202409091132017_Migration12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

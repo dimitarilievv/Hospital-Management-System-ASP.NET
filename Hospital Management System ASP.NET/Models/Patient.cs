@@ -15,6 +15,7 @@ namespace Hospital_Management_System_ASP.NET.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public string FullName { get; set; }
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -34,5 +35,9 @@ namespace Hospital_Management_System_ASP.NET.Models
 
         public ApplicationUser ApplicationUser { get; set; }
         public string ApplicationUserId { get; set; }
+        public Patient()
+        {
+            FullName = FirstName + " " + LastName;
+        }
     }
 }

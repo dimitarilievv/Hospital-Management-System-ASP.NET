@@ -112,7 +112,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 appointment.DoctorId = model.Appointment.DoctorId;
                 appointment.AppointmentTime = model.Appointment.AppointmentTime;
                 appointment.Problem = model.Appointment.Problem;
-                appointment.Status = "false";
+                appointment.Status = false;
 
                 db.Appointments.Add(appointment);
                 db.SaveChanges();

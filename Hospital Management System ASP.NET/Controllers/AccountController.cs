@@ -184,7 +184,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    var patient = new Patient { FirstName = model.FirstName, LastName = model.LastName, EmailAddress = model.Email, ApplicationUserId = user.Id };
+                    var patient = new Patient { FirstName = model.FirstName, LastName = model.LastName, EmailAddress = model.Email, ApplicationUserId = user.Id,FullName=model.FirstName+" "+model.LastName };
                     db.Patients.Add(patient);
                     db.SaveChanges();
                     await UserManager.AddToRoleAsync(user.Id, "Patient");
@@ -474,6 +474,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 doctor.EmailAddress= patient.EmailAddress;
                 doctor.ApplicationUserId = user.Id;
                 doctor.DepartmentId = 1;
+                doctor.FullName=patient.FirstName + " " + patient.LastName;
               
                 db.Doctors.Add(doctor);
                 db.Patients.Remove(patient);

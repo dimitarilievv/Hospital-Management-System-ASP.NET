@@ -49,5 +49,17 @@ namespace Hospital_Management_System_ASP.NET.Models
         {
             FullName=FirstName + " " + LastName;
         }
+        public bool IsProfileComplete()
+        {
+            return !string.IsNullOrEmpty(FirstName) &&
+                   !string.IsNullOrEmpty(LastName) &&
+                   !string.IsNullOrEmpty(EmailAddress) &&
+                   !string.IsNullOrEmpty(ImageURL) &&
+                   !string.IsNullOrEmpty(PhoneNo) &&
+                   !string.IsNullOrEmpty(Specialization) &&
+                   DateOfBirth.HasValue &&
+                   !string.IsNullOrEmpty(Address) &&
+                   DepartmentId > 0;
+        } 
     }
 }

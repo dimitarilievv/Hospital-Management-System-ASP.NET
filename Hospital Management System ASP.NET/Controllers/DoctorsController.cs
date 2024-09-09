@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Hospital_Management_System_ASP.NET.Models;
+using Hospital_Management_System_ASP.NET.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace Hospital_Management_System_ASP.NET.Controllers
@@ -15,111 +17,111 @@ namespace Hospital_Management_System_ASP.NET.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Doctors
-        [Authorize(Roles = "Doctor")]
-        public ActionResult Index()
-        {
-            var doctors = db.Doctors.Include(d => d.Department);
-            return View(doctors.ToList());
-        }
+        //// GET: Doctors
+        //[Authorize(Roles = "Doctor")]
+        //public ActionResult Index()
+        //{
+        //    var doctors = db.Doctors.Include(d => d.Department);
+        //    return View(doctors.ToList());
+        //}
 
-        // GET: Doctors/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(doctor);
-        }
+        //// GET: Doctors/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Doctor doctor = db.Doctors.Find(id);
+        //    if (doctor == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(doctor);
+        //}
 
-        // GET: Doctors/Create
-        public ActionResult Create()
-        {
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name");
-            return View();
-        }
+        //// GET: Doctors/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name");
+        //    return View();
+        //}
 
-        // POST: Doctors/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DoctorId,FirstName,FullName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
-        {
-            doctor.FullName = doctor.FirstName + " " + doctor.LastName;
-            if (ModelState.IsValid)
-            {
-                db.Doctors.Add(doctor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: Doctors/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "DoctorId,FirstName,FullName,LastName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
+        //{
+        //    doctor.FullName = doctor.FirstName + " " + doctor.LastName;
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Doctors.Add(doctor);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
             
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+        //    ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
             
-            return View(doctor);
-        }
+        //    return View(doctor);
+        //}
 
-        // GET: Doctors/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+        //// GET: Doctors/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Doctor doctor = db.Doctors.Find(id);
+        //    if (doctor == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
             
-            return View(doctor);
-        }
+        //    return View(doctor);
+        //}
 
-        // POST: Doctors/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,FullName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(doctor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
-            return View(doctor);
-        }
+        //// POST: Doctors/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "DoctorId,FirstName,LastName,FullName,EmailAddress,Gender,DateOfBirth,Address,PhoneNo,Specialization,DepartmentId,ImageURL,Status")] Doctor doctor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(doctor).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+        //    return View(doctor);
+        //}
 
-        // GET: Doctors/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(doctor);
-        }
+        //// GET: Doctors/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Doctor doctor = db.Doctors.Find(id);
+        //    if (doctor == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(doctor);
+        //}
 
-        // POST: Doctors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Doctor doctor = db.Doctors.Find(id);
-            db.Doctors.Remove(doctor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Doctors/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Doctor doctor = db.Doctors.Find(id);
+        //    db.Doctors.Remove(doctor);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         //Update profile
         [Authorize(Roles = "Doctor")]
@@ -127,6 +129,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         {
             string id = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
             return View(doctor);
         }
 
@@ -136,18 +139,26 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         {
             string id = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
-            doctor.FirstName = model.FirstName;
-            doctor.LastName = model.LastName;
-            doctor.EmailAddress = model.EmailAddress;
-            doctor.Address = model.Address;
-            doctor.Specialization = model.Specialization;
-            doctor.ImageURL = model.ImageURL;
-            doctor.DateOfBirth = model.DateOfBirth;
-            doctor.Gender = model.Gender;
-            doctor.PhoneNo = model.PhoneNo;
-            doctor.Status = model.Status;
-            db.SaveChanges();
-            return RedirectToAction("UpdateProfile", new { id = doctor.ApplicationUserId });
+
+            if (ModelState.IsValid)
+            {
+                doctor.FirstName = model.FirstName;
+                doctor.LastName = model.LastName;
+                doctor.EmailAddress = model.EmailAddress;
+                doctor.Address = model.Address;
+                doctor.Specialization = model.Specialization;
+                doctor.ImageURL = model.ImageURL;
+                doctor.DateOfBirth = model.DateOfBirth;
+                doctor.Gender = model.Gender;
+                doctor.PhoneNo = model.PhoneNo;
+                doctor.Status = model.Status;
+                doctor.DepartmentId = model.DepartmentId;
+
+                db.SaveChanges();
+                return RedirectToAction("UpdateProfile");
+            }
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
+            return View(model);
         }
 
         [Authorize(Roles = "Doctor")]
@@ -155,8 +166,14 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         {
             string user = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
-            var schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
+            Schedule schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
+            if (schedule == null)
+            {
+                return HttpNotFound(); // Handle cases where schedule is not found
+            }
+
             return View(schedule);
+
         }
 
         //Edit Schedule
@@ -180,6 +197,151 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             schedule.TimePerPatient = model.TimePerPatient;
             db.SaveChanges();
             return RedirectToAction("ScheduleDetail");
+        }
+
+        //Add appointment
+        [Authorize(Roles = "Doctor")]
+        public ActionResult AddAppointment()
+        {
+            var collection = new AppointmentViewModel
+            {
+                Appointment = new Appointment(),
+                Patients = db.Patients.ToList()
+            };
+            return View(collection);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAppointment(AppointmentViewModel model)
+        {
+            string user = User.Identity.GetUserId();
+            var collection = new AppointmentViewModel
+            {
+                Appointment = model.Appointment,
+                Patients = db.Patients.ToList()
+            };
+            if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
+            {
+                var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
+                var appointment = new Appointment();
+                appointment.PatientId = model.Appointment.PatientId;
+                appointment.DoctorId = doctor.DoctorId;
+                appointment.AppointmentTime = model.Appointment.AppointmentTime;
+                appointment.Problem = model.Appointment.Problem;
+                appointment.Status = model.Appointment.Status;
+
+                db.Appointments.Add(appointment);
+                db.SaveChanges();
+
+                if (model.Appointment.Status == true)
+                {
+                    return RedirectToAction("ActiveAppointments");
+                }
+                else
+                {
+                    return RedirectToAction("PendingAppointments");
+                }
+            }
+            ViewBag.Messege = "Please Enter the Date greater than today or equal!!";
+
+            return View(collection);
+        }
+
+        //List of Active Appointments
+        [Authorize(Roles = "Doctor")]
+        public ActionResult ActiveAppointments()
+        {
+            var user = User.Identity.GetUserId();
+            var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
+            var date = DateTime.Now.Date;
+            var appointment = db.Appointments.Include(c => c.Doctor).Include(c => c.Patient).Where(c => c.DoctorId == doctor.DoctorId).Where(c => c.Status ==true).Where(c => c.AppointmentTime >= date).ToList();
+            return View(appointment);
+        }
+        //List of Pending Appointments
+        public ActionResult PendingAppointments()
+        {
+            var user = User.Identity.GetUserId();
+            var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
+            var date = DateTime.Now.Date;
+            var appointment = db.Appointments.Include(c => c.Doctor).Include(c => c.Patient).Where(c => c.DoctorId == doctor.DoctorId).Where(c => c.Status == false).Where(c => c.AppointmentTime >= date).ToList();
+            return View(appointment);
+        }
+
+        //Edit Appointment
+        [Authorize(Roles = "Doctor")]
+        public ActionResult EditAppointment(int id)
+        {
+            var collection = new AppointmentViewModel
+            {
+                Appointment = db.Appointments.Single(c => c.AppointmentId == id),
+                Patients = db.Patients.ToList()
+            };
+            return View(collection);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAppointment(int id, AppointmentViewModel model)
+        {
+            var collection = new AppointmentViewModel
+            {
+                Appointment = model.Appointment,
+                Patients = db.Patients.ToList()
+            };
+            if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
+            {
+                var appointment = db.Appointments.Single(c => c.AppointmentId == id);
+                appointment.PatientId = model.Appointment.PatientId;
+                appointment.AppointmentTime = model.Appointment.AppointmentTime;
+                appointment.Problem = model.Appointment.Problem;
+                appointment.Status = model.Appointment.Status;
+                db.SaveChanges();
+                if (model.Appointment.Status == true)
+                {
+                    return RedirectToAction("ActiveAppointments");
+                }
+                else
+                {
+                    return RedirectToAction("PendingAppointments");
+                }
+            }
+            ViewBag.Messege = "Please Enter the Date greater than today or equal!!";
+
+            return View(collection);
+        }
+
+        //Detail of appointment
+        [Authorize(Roles = "Doctor")]
+        public ActionResult DetailOfAppointment(int id)
+        {
+            var appointment = db.Appointments.Include(c => c.Doctor).Include(c => c.Patient).Single(c => c.AppointmentId == id);
+            return View(appointment);
+        }
+
+        //Delete Appointment
+        [Authorize(Roles = "Doctor")]
+        public ActionResult DeleteAppointment(int? id)
+        {
+            var appointment = db.Appointments.Single(c => c.AppointmentId == id);
+            return View(appointment);
+        }
+
+        [HttpPost, ActionName("DeleteAppointment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAppointment(int id)
+        {
+            var appointment = db.Appointments.Single(c => c.AppointmentId == id);
+            db.Appointments.Remove(appointment);
+            db.SaveChanges();
+            if (appointment.Status)
+            {
+                return RedirectToAction("ActiveAppointments");
+            }
+            else
+            {
+                return RedirectToAction("PendingAppointments");
+            }
         }
         protected override void Dispose(bool disposing)
         {

@@ -10,10 +10,10 @@ namespace Hospital_Management_System_ASP.NET.Models
         public int AppointmentId { get; set; }
         [Display(Name = "Appointment Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd HH:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime? AppointmentTime { get; set; }
         public string Problem { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
         public Patient Patient { get; set; }
         [Display(Name = "Patient Name")]
         public int PatientId { get; set; }

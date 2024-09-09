@@ -50,10 +50,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Problem)
                 </td>
-                @if (item.Status=="true")
+                @if (item.Status)
                 {
                     <td>
-                        @Html.DisplayFor(m => item.AppointmentId)
+                        @("Approved")
                     </td>
                 }
                 else
