@@ -35,5 +35,7 @@ namespace Hospital_Management_System_ASP.NET.Models
         {
             return new ApplicationDbContext();
         }
+
+      //  public System.Data.Entity.DbSet<Hospital_Management_System_ASP.NET.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

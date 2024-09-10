@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -225,6 +226,14 @@
     <Compile Include="Migrations\202409091132017_Migration12.designer.cs">
       <DependentUpon>202409091132017_Migration12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409101007411_Migration13.cs" />
+    <Compile Include="Migrations\202409101007411_Migration13.designer.cs">
+      <DependentUpon>202409101007411_Migration13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409101100590_Migration14.cs" />
+    <Compile Include="Migrations\202409101100590_Migration14.designer.cs">
+      <DependentUpon>202409101100590_Migration14.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -238,6 +247,7 @@
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\DoctorAndDepartmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -312,7 +322,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Doctors\Index.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
     <Content Include="Views\Departments\Create.cshtml" />
     <Content Include="Views\Departments\Delete.cshtml" />
@@ -340,11 +349,20 @@
     <Content Include="Views\Doctors\EditAppointment.cshtml" />
     <Content Include="Views\Doctors\DetailOfAppointment.cshtml" />
     <Content Include="Views\Doctors\DeleteAppointment.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\DepartmentList.cshtml" />
+    <Content Include="Views\Admin\AddDepartment.cshtml" />
+    <Content Include="Views\Admin\EditDepartment.cshtml" />
+    <Content Include="Views\Admin\DeleteDepartment.cshtml" />
+    <Content Include="Views\Admin\AddDoctor.cshtml" />
+    <Content Include="Views\Admin\ListOfDoctors.cshtml" />
+    <Content Include="Views\Admin\EditDoctors.cshtml" />
+    <Content Include="Views\Admin\DoctorDetail.cshtml" />
+    <Content Include="Views\Admin\DeleteDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Layout\resources\css\img\" />
-    <Folder Include="Views\AllPatients\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -409,6 +427,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409091132017_Migration12.resx">
       <DependentUpon>202409091132017_Migration12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409101007411_Migration13.resx">
+      <DependentUpon>202409101007411_Migration13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409101100590_Migration14.resx">
+      <DependentUpon>202409101100590_Migration14.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
