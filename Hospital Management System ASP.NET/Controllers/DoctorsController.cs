@@ -61,9 +61,10 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             string user = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == user);
             Schedule schedule = db.Schedules.Single(c => c.DoctorId == doctor.DoctorId);
+
             if (schedule == null)
             {
-                return HttpNotFound(); // Handle cases where schedule is not found
+                return HttpNotFound("This doctor hasn't set up shedule"); // Handle cases where schedule is not found
             }
 
             return View(schedule);
@@ -110,10 +111,21 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         public ActionResult AddAppointment(AppointmentViewModel model)
         {
             string user = User.Identity.GetUserId();
+
+            // Get the role IDs for the "Patient" and "Admin" roles
+            var patientRoleId = db.Roles.SingleOrDefault(r => r.Name == "Patient").Id;
+            var adminRoleId = db.Roles.SingleOrDefault(r => r.Name == "Admin").Id;
+
+            // Fetch only users who have the "Patient" role but do not have the "Admin" role
+            var patients = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId) && !u.Roles.Any(r => r.RoleId == adminRoleId))
+                             .Join(db.Patients, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
+
             var collection = new AppointmentViewModel
             {
                 Appointment = model.Appointment,
-                Patients = db.Patients.ToList()
+                Patients = patients
             };
             if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
             {

@@ -132,20 +132,31 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             };
             return View(collection);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddDoctor(DoctorAndDepartmentViewModel model)
         {
+            // Check if a user with the same email already exists
+            var existingUser = await UserManager.FindByEmailAsync(model.ApplicationUser.Email);
+
+            if (existingUser != null)
+            {
+              
+                return View(model);  // Return the view with the entered data
+            }
+
             var user = new ApplicationUser
             {
                 UserName = model.ApplicationUser.Email,
                 Email = model.ApplicationUser.Email
             };
+
             var result = await UserManager.CreateAsync(user, model.ApplicationUser.Password);
+
             if (result.Succeeded)
             {
                 await UserManager.AddToRoleAsync(user.Id, "Doctor");
+
                 var doctor = new Doctor
                 {
                     FirstName = model.Doctor.FirstName,
@@ -162,13 +173,29 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                     DateOfBirth = model.Doctor.DateOfBirth,
                     Status = model.Doctor.Status
                 };
+
                 db.Doctors.Add(doctor);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+
+                // Create default schedule for the doctor
+                var schedule = new Schedule
+                {
+                    DoctorId = doctor.DoctorId,
+                    AvailableStartDay = "Monday",  // Default start day
+                    AvailableEndDay = "Friday",    // Default end day
+                    AvailableStartTime = DateTime.Today.AddHours(9), // Default start time: 09:00 AM
+                    AvailableEndTime = DateTime.Today.AddHours(17),  // Default end time: 05:00 PM
+                    TimePerPatient = "30", // Default time per patient
+                    Status = "Active"           // Default status
+                };
+
+                db.Schedules.Add(schedule);
+                await db.SaveChangesAsync();
+
                 return RedirectToAction("ListOfDoctors");
             }
 
-            return HttpNotFound();
-
+            return View(model);  // Return the view with errors
         }
         //Detail of Doctor
         [Authorize(Roles = "Admin")]
@@ -182,12 +209,23 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult EditDoctors(int id)
         {
-            var collection = new DoctorAndDepartmentViewModel
+            var doctor = db.Doctors.Include(d => d.ApplicationUser).FirstOrDefault(d => d.DoctorId == id);
+            if (doctor == null)
             {
-                Departments = db.Departments.ToList(),
-                Doctor = db.Doctors.Single(c => c.DoctorId == id)
+                return HttpNotFound();
+            }
+
+            var model = new DoctorAndDepartmentViewModel
+            {
+                Doctor = doctor,
+                ApplicationUser = new RegisterViewModel
+                {
+                    Email = doctor.ApplicationUser.Email
+                },
+                Departments = db.Departments.ToList()
             };
-            return View(collection);
+
+            return View(model);
         }
 
         [HttpPost]
@@ -206,7 +244,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             doctor.Address = model.Doctor.Address;
             doctor.DateOfBirth = model.Doctor.DateOfBirth;
             doctor.Status = model.Doctor.Status;
-           
+            
 
             db.SaveChanges();
 
@@ -418,11 +456,21 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AddAppointment()
         {
+            var patientRoleId = db.Roles.SingleOrDefault(r => r.Name == "Patient").Id;
+            var patients = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId))
+                             .Join(db.Patients, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
+            var doctorRoleId = db.Roles.SingleOrDefault(r => r.Name == "Doctor").Id;
+            var doctors = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == doctorRoleId))
+                             .Join(db.Doctors, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
             var collection = new AppointmentViewModel
             {
                 Appointment = new Appointment(),
-                Patients = db.Patients.ToList(),
-                Doctors = db.Doctors.ToList()
+                Patients = patients,
+                Doctors = doctors
             };
             return View(collection);
         }

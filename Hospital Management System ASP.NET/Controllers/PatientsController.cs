@@ -86,10 +86,15 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [Authorize(Roles = "Patient")]
         public ActionResult AddAppointment()
         {
+            var doctorRoleId = db.Roles.SingleOrDefault(r => r.Name == "Doctor").Id;
+            var doctors = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == doctorRoleId))
+                             .Join(db.Doctors, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
             var collection = new AppointmentViewModel
             {
                 Appointment = new Appointment(),
-                Doctors = db.Doctors.ToList()
+                Doctors = doctors
             };
             return View(collection);
         }

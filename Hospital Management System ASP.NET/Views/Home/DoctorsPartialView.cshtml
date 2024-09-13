@@ -2,7 +2,7 @@
 
 <div style="margin:0px 100px 0px 100px">
     <div style="display:flex; gap:-20px;align-items:center">
-        @foreach (var item in Model.Take(4))
+        @foreach (var item in Model.Take(4).Where(m=>m.ImageURL!=null))
         {
             <div style="flex:1; text-align:center">
                     <img src="@item.ImageURL" class="img-fluid" alt="@item.FirstName @item.LastName" style="max-width: 50%; height: auto; border-radius:50%" />
@@ -13,7 +13,7 @@
     </div>
 </div>
 <div style="text-align:center; margin-top:40px" >
-    <a class="btn btn-ghost js-scroll-to-start" href="~/Doctors/Index">See all doctors</a>
+    <a class="btn btn-ghost js-scroll-to-start" href="~/Patients/AvailableDoctors">See all doctors</a>
 </div>
 <style>
 

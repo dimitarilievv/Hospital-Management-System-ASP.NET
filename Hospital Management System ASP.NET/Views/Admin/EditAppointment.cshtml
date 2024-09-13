@@ -36,10 +36,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Appointment.AppointmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Appointment.AppointmentTime, new { htmlAttributes = new { @class = "form-control" } })
-                @if (ViewBag.Messege != null)
+                @Html.TextBoxFor(model => model.Appointment.AppointmentTime, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", @type = "datetime-local" })
+                @if (ViewBag.Message != null)
                 {
-                    <span class="text-danger">@ViewBag.Messege</span>
+                    <span class="text-danger">@ViewBag.Message</span>
                 }
                 @Html.ValidationMessageFor(model => model.Appointment.AppointmentTime, "", new { @class = "text-danger" })
             </div>

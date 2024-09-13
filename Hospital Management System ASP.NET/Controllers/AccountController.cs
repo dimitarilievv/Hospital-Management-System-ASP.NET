@@ -504,13 +504,26 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 doctor.DepartmentId = 1;
                 doctor.FullName = patient.FirstName + " " + patient.LastName;
 
+                var schedule = new Schedule
+                {
+                    DoctorId = doctor.DoctorId,
+                    AvailableStartDay = "Monday",  // Default start day
+                    AvailableEndDay = "Friday",    // Default end day
+                    AvailableStartTime = DateTime.Today.AddHours(9), // Default start time: 09:00 AM
+                    AvailableEndTime = DateTime.Today.AddHours(17),  // Default end time: 05:00 PM
+                    TimePerPatient = "30 minutes", // Default time per patient
+                    Status = "Active"           // Default status
+                };
+
+                db.Schedules.Add(schedule);
                 db.Doctors.Add(doctor);
+
                 db.Patients.Remove(patient);
                 db.SaveChanges();
                 return RedirectToAction("UpdateProfile", "Doctors");
             }
             //Change role to Admin from Patient/Doctor 
-            else
+            else if(model.SelectedRole == "Admin")
             {
                 if (UserManager.IsInRole(user.Id, "Patient"))
                 {
