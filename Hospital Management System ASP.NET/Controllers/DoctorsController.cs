@@ -33,6 +33,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         {
             string id = User.Identity.GetUserId();
             var doctor = db.Doctors.Single(c => c.ApplicationUserId == id);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", model.DepartmentId);
 
             if (ModelState.IsValid)
             {
@@ -51,7 +52,6 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 db.SaveChanges();
                 return RedirectToAction("UpdateProfile");
             }
-            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentId", "Name", doctor.DepartmentId);
             return View(model);
         }
 
@@ -98,10 +98,15 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [Authorize(Roles = "Doctor")]
         public ActionResult AddAppointment()
         {
+            var patientRoleId = db.Roles.SingleOrDefault(r => r.Name == "Patient").Id;
+            var patients = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId))
+                             .Join(db.Patients, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
             var collection = new AppointmentViewModel
             {
                 Appointment = new Appointment(),
-                Patients = db.Patients.ToList()
+                Patients = patients
             };
             return View(collection);
         }
@@ -111,14 +116,9 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         public ActionResult AddAppointment(AppointmentViewModel model)
         {
             string user = User.Identity.GetUserId();
-
-            // Get the role IDs for the "Patient" and "Admin" roles
             var patientRoleId = db.Roles.SingleOrDefault(r => r.Name == "Patient").Id;
-            var adminRoleId = db.Roles.SingleOrDefault(r => r.Name == "Admin").Id;
-
-            // Fetch only users who have the "Patient" role but do not have the "Admin" role
             var patients = db.Users
-                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId) && !u.Roles.Any(r => r.RoleId == adminRoleId))
+                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId))
                              .Join(db.Patients, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
                              .ToList();
 

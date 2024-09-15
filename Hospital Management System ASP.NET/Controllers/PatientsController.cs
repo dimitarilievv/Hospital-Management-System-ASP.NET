@@ -103,10 +103,15 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddAppointment(AppointmentViewModel model)
         {
+            var doctorRoleId = db.Roles.SingleOrDefault(r => r.Name == "Doctor").Id;
+            var doctors = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == doctorRoleId))
+                             .Join(db.Doctors, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
             var collection = new AppointmentViewModel
             {
                 Appointment = model.Appointment,
-                Doctors = db.Doctors.ToList()
+                Doctors = doctors
             };
             if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
             {

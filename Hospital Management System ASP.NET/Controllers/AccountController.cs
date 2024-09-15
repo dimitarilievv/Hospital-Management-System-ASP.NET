@@ -502,7 +502,8 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                 doctor.EmailAddress = patient.EmailAddress;
                 doctor.ApplicationUserId = user.Id;
                 doctor.DepartmentId = 1;
-                doctor.FullName = patient.FirstName + " " + patient.LastName;
+                doctor.FullName = "Dr. "+patient.FirstName + " " + patient.LastName;
+                doctor.Status = "Inactive";
 
                 var schedule = new Schedule
                 {
@@ -511,7 +512,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                     AvailableEndDay = "Friday",    // Default end day
                     AvailableStartTime = DateTime.Today.AddHours(9), // Default start time: 09:00 AM
                     AvailableEndTime = DateTime.Today.AddHours(17),  // Default end time: 05:00 PM
-                    TimePerPatient = "30 minutes", // Default time per patient
+                    TimePerPatient = "30", // Default time per patient
                     Status = "Active"           // Default status
                 };
 

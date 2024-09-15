@@ -36,11 +36,23 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
         }
-        public ActionResult Index()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index(string message)
         {
-            return View();
+            var date = DateTime.Now.Date;
+            ViewBag.Messege = message;
+            var model = new AllModelsViewModel
+            {
+                Departments = db.Departments.ToList(),
+                Doctors = db.Doctors.ToList(),
+                Patients = db.Patients.ToList(),
+                ActiveAppointments =
+                    db.Appointments.Where(c => c.Status).Where(c => c.AppointmentTime >= date).ToList(),
+                PendingAppointments = db.Appointments.Where(c => c.Status == false)
+                    .Where(c => c.AppointmentTime >= date).ToList(),
+            };
+            return View(model);
         }
-
         //Deparments part
 
         //All departments
@@ -479,11 +491,21 @@ namespace Hospital_Management_System_ASP.NET.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddAppointment(AppointmentViewModel model)
         {
+            var patientRoleId = db.Roles.SingleOrDefault(r => r.Name == "Patient").Id;
+            var patients = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == patientRoleId))
+                             .Join(db.Patients, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
+            var doctorRoleId = db.Roles.SingleOrDefault(r => r.Name == "Doctor").Id;
+            var doctors = db.Users
+                             .Where(u => u.Roles.Any(r => r.RoleId == doctorRoleId))
+                             .Join(db.Doctors, u => u.Id, p => p.ApplicationUserId, (u, p) => p)
+                             .ToList();
             var collection = new AppointmentViewModel
             {
                 Appointment = model.Appointment,
-                Patients = db.Patients.ToList(),
-                Doctors = db.Doctors.ToList()
+                Patients = patients,
+                Doctors = doctors
             };
             if (model.Appointment.AppointmentTime >= DateTime.Now.Date)
             {
