@@ -50,14 +50,10 @@
                     <img src="@item.ImageURL" style="max-width: 70px; max-height: 70px" />
                 </td>
                 <td>
-                    @Html.ActionLink("Book this doctor", "AddAppointment", new { id = item.DoctorId }) |
-                    @Html.ActionLink("Details", "DoctorDetails", new { id = item.DoctorId })
+                    <a href="@Url.Action("DoctorSchedule", new {id = item.DoctorId})" class="fa fa-calendar-check-o" style="font-size: 19px;"></a> |
+                    <a href="@Url.Action("DoctorDetails", new {id = item.DoctorId})" class="fa fa-info-circle" style="font-size: 19px; color: lightblue"></a>
                 </td>
-                @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.DoctorId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.DoctorId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.DoctorId })
-        </td>*@
+
             </tr>
         }
     </tbody>

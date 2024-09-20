@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Department>
+
 <div class="col span-1-of-2 step-box">
     <img src="~/Content/Layout/resources/img/image1.png" class="contact-form js-wp-2">
 </div>
@@ -7,17 +8,45 @@
     @{
         int counter = 1;
     }
-    @foreach (var department in Model.Take(3))
-    {
-        <div class="works-step">
-            <div>@counter</div>
-            <p>@department.Name - @department.Description</p>
-        </div>
-        counter++;
-    }
-    <div style="text-align:left; margin-top:40px;margin-left:70px">
-        <a class="btn btn-ghost js-scroll-to-start" href="~/Patients/AvailableDoctors">See all departments</a>
+    <div id="department-container" class="department-grid">
+        <!-- Apply the class here -->
+        @foreach (var department in Model)
+        {
+            <div class="works-step department-item" style="display: none;">
+                <div>@counter</div>
+                <p>@department.Name - @department.Description</p>
+            </div>
+            counter++;
+        }
+    </div>
+
+    <div style="text-align:left; margin-top:20px; margin-left:70px;">
+        <a id="toggleDepartmentButton" class="btn btn-ghost" href="javascript:void(0)">See all departments</a>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.department-item').slice(0, 4).show();
 
+        $('#toggleDepartmentButton').on('click', function () {
+            var allDepartments = $('.department-item').length;
+            if ($(this).text() === 'See all departments') {
+                $('.department-item').show();
+                $(this).text('See less');
+            } else {
+                $('.department-item').slice(4, allDepartments).hide();
+                $(this).text('See all departments');
+            }
+        });
+    });
+</script>
+
+<style>
+    .department-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px; 
+    }
+</style>

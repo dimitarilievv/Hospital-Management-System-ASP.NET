@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.Mvc;
 using Hospital_Management_System_ASP.NET.Models;
+using System.Data.Entity;
+
 
 namespace Hospital_Management_System_ASP.NET.Controllers
 {
@@ -20,19 +23,6 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             return View(model);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

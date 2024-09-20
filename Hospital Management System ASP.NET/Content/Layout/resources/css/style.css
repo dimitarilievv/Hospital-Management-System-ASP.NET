@@ -674,7 +674,8 @@ js-wp-3.animated {
     display: none;
 }
 
-    .mobile-nav-icon i {
+.mobile-nav-icon i {
         font-size: 200%;
         color: #fff;
-    }
+}
+

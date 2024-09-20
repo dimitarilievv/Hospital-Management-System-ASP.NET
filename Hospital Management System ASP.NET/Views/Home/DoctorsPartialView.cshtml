@@ -1,20 +1,44 @@
 ﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Doctor>
 
-<div style="margin:0px 100px 0px 100px">
-    <div style="display:flex; gap:-20px;align-items:center">
-        @foreach (var item in Model.Take(4).Where(m=>m.ImageURL!=null))
+<div style="margin: 0px 100px;">
+    <div id="doctor-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+        @foreach (var item in Model)
         {
-            <div style="flex:1; text-align:center">
-                    <img src="@item.ImageURL" class="img-fluid" alt="@item.FirstName @item.LastName" style="max-width: 50%; height: auto; border-radius:50%" />
-                    <p>@item.FirstName @item.LastName</p>
+            <div class="doctor-item" style="text-align: center; display: none;">
+                <img src="@item.ImageURL" class="img-fluid" alt="@item.FirstName @item.LastName" style="max-width: 50%; height: auto; border-radius: 50%;" />
+                <p>@item.FirstName @item.LastName</p>
             </div>
         }
-
     </div>
 </div>
-<div style="text-align:center; margin-top:40px" >
-    <a class="btn btn-ghost js-scroll-to-start" href="~/Patients/AvailableDoctors">See all doctors</a>
+
+<div style="text-align: center; margin-top: 40px;">
+    <a id="toggleButton" class="btn btn-ghost js-scroll-to-start" href="javascript:void(0)">Show all doctors</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.doctor-item').slice(0, 4).show();
+
+        $('#toggleButton').on('click', function () {
+            var allDoctors = $('.doctor-item').length;
+            if ($(this).text() === 'Show all doctors') {
+                $('.doctor-item').show();
+                $(this).text('Show less');
+            } else {
+                $('.doctor-item').slice(4, allDoctors).hide();
+                $(this).text('Show all doctors');
+            }
+        });
+    });
+</script>
+
 <style>
+    #doctor-container {
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 20px;
+    }
+
 
 </style>

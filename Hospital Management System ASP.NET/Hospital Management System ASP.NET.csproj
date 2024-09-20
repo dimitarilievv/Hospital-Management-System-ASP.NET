@@ -234,6 +234,10 @@
     <Compile Include="Migrations\202409101100590_Migration14.designer.cs">
       <DependentUpon>202409101100590_Migration14.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409201837085_Migration15.cs" />
+    <Compile Include="Migrations\202409201837085_Migration15.designer.cs">
+      <DependentUpon>202409201837085_Migration15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -301,8 +305,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -375,6 +377,7 @@
     <Content Include="Views\Admin\DeleteAppointment.cshtml" />
     <Content Include="Views\Admin\EditAppointment.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Patients\DoctorSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -410,6 +413,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202408311527016_Initial.resx">
       <DependentUpon>202408311527016_Initial.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202408311532159_Initial2.resx">
       <DependentUpon>202408311532159_Initial2.cs</DependentUpon>
@@ -419,6 +423,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409030802276_Migration4.resx">
       <DependentUpon>202409030802276_Migration4.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409041028356_Migration5.resx">
       <DependentUpon>202409041028356_Migration5.cs</DependentUpon>
@@ -449,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409101100590_Migration14.resx">
       <DependentUpon>202409101100590_Migration14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409201837085_Migration15.resx">
+      <DependentUpon>202409201837085_Migration15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

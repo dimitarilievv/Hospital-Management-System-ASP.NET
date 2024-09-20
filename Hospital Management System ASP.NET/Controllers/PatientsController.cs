@@ -79,6 +79,13 @@ namespace Hospital_Management_System_ASP.NET.Controllers
 
             return View(doctor);
         }
+        //Doctor Schedule
+        [Authorize(Roles = "Patient")]
+        public ActionResult DoctorSchedule(int id)
+        {
+            var schedule = db.Schedules.Include(c => c.Doctor).Single(c => c.DoctorId == id);
+            return View(schedule);
+        }
 
         //APPOINTMENTS PART
 
