@@ -66,6 +66,12 @@
                     @Html.ActionLink("Your Appointments", "ListOfAppointments", "Patients", null, new { @class = "list-group-item", @style = "margin: 0px -20px; font-size: 13px" })
                 </div>
             </li>
+            <li>
+                <button class="collapsible"><em class="fa fa-book">&nbsp; &nbsp;</em>Prescription</button>
+                <div style="width: 100% !important" class="children content">
+                    @Html.ActionLink("Your Prescriptions", "ListOfPrescription", "Patients", null, new { @class = "list-group-item", @style = "margin: 0px -20px; font-size: 13px" })
+                </div>
+            </li>
             @Html.Partial("_LoginPartial")
         </ul>
     </div><!--/.sidebar-->

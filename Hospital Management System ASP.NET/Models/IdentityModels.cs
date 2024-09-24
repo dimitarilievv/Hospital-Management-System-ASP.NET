@@ -25,7 +25,7 @@ namespace Hospital_Management_System_ASP.NET.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
-
+        public DbSet<Prescription> Prescriptions { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -238,11 +238,20 @@
     <Compile Include="Migrations\202409201837085_Migration15.designer.cs">
       <DependentUpon>202409201837085_Migration15.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409241154236_Migration16.cs" />
+    <Compile Include="Migrations\202409241154236_Migration16.designer.cs">
+      <DependentUpon>202409241154236_Migration16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409241155597_Migration17.cs" />
+    <Compile Include="Migrations\202409241155597_Migration17.designer.cs">
+      <DependentUpon>202409241155597_Migration17.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\Prescription.cs" />
     <Compile Include="ViewModels\AllModelsViewModel.cs" />
     <Compile Include="ViewModels\AppointmentViewModel.cs" />
     <Compile Include="ViewModels\DoctorAndDepartmentModelView.cs" />
@@ -253,6 +262,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DoctorAndDepartmentViewModel.cs" />
+    <Compile Include="ViewModels\PrescriptionViewModel.cs" />
     <Compile Include="ViewModels\ScheduleDoctorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +388,13 @@
     <Content Include="Views\Admin\EditAppointment.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Patients\DoctorSchedule.cshtml" />
+    <Content Include="Views\Patients\ListOfPrescription.cshtml" />
+    <Content Include="Views\Patients\PrescriptionView.cshtml" />
+    <Content Include="Views\Doctors\AddPrescription.cshtml" />
+    <Content Include="Views\Doctors\ListOfPrescription.cshtml" />
+    <Content Include="Views\Doctors\ViewPrescription.cshtml" />
+    <Content Include="Views\Doctors\DeletePrescription.cshtml" />
+    <Content Include="Views\Doctors\EditPrescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -457,6 +474,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409201837085_Migration15.resx">
       <DependentUpon>202409201837085_Migration15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409241154236_Migration16.resx">
+      <DependentUpon>202409241154236_Migration16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409241155597_Migration17.resx">
+      <DependentUpon>202409241155597_Migration17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

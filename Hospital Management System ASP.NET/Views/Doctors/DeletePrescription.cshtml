@@ -1,0 +1,24 @@
+﻿@model Hospital_Management_System_ASP.NET.Models.Prescription
+
+@{
+    ViewBag.Title = "DeletePrescription";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+
+<h2>Delete Prescription</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "ListOfPrescription")
+        </div>
+    }
+</div>

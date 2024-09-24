@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Hospital_Management_System_ASP.NET.Models.Prescription>
+
+@{
+    ViewBag.Title = "ListOfPrescription";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+
+<h2>List Of Prescription</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddPrescription", null, new { @class = "btn btn-primary" })
+</p>
+<table id="table_id" class="table">
+    <thead>
+        <tr>
+            <th>
+                Patient Mail
+            </th>
+            <th>
+                Patient Name
+            </th>
+            <th>
+                Date
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientName)
+                </td>
+                <td>
+                    @item.PrescriptionAddDate.ToShortDateString()
+                </td>
+                <td>
+                    <a href="@Url.Action("EditPrescription", new {id = item.Id})" class="fa fa-pencil-square-o" style="font-size: 19px"></a> |
+                    <a href="@Url.Action("ViewPrescription", new {id = item.Id})" class="fa fa-book" style="font-size: 19px; color: lightblue"></a> |
+                    <a href="@Url.Action("DeletePrescription", new {id = item.Id})" class="fa fa-trash" style="font-size: 19px; color: blue"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#table_id").dataTable();
+        });
+    </script>
+}

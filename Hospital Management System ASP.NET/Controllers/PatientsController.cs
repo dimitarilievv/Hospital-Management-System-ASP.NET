@@ -105,7 +105,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             };
             return View(collection);
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddAppointment(AppointmentViewModel model)
@@ -204,6 +204,34 @@ namespace Hospital_Management_System_ASP.NET.Controllers
             db.SaveChanges();
             return RedirectToAction("ListOfAppointments");
         }
+
+        //PRESCRIPTION PART
+        //List of Prescription
+        [Authorize(Roles = "Patient")]
+        public ActionResult ListOfPrescription()
+        {
+            string user = User.Identity.GetUserId();
+            var patient = db.Patients.Single(c => c.ApplicationUserId == user);
+            var prescription = db.Prescriptions.Include(c => c.Doctor).Where(c => c.PatientId == patient.PatientId).ToList();
+            return View(prescription);
+        }
+
+        //Prescription View
+        [Authorize(Roles = "Patient")]
+        public ActionResult PrescriptionView(int id)
+        {
+            var prescription = db.Prescriptions.SingleOrDefault(c => c.Id == id);
+
+            if (prescription == null)
+            {
+                // Handle the case where the prescription is not found
+                return HttpNotFound("Prescription not found.");
+            }
+
+            return View(prescription);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

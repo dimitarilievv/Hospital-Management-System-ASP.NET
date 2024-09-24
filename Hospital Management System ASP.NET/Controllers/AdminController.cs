@@ -50,6 +50,7 @@ namespace Hospital_Management_System_ASP.NET.Controllers
                     db.Appointments.Where(c => c.Status).Where(c => c.AppointmentTime >= date).ToList(),
                 PendingAppointments = db.Appointments.Where(c => c.Status == false)
                     .Where(c => c.AppointmentTime >= date).ToList(),
+                Prescriptions = db.Prescriptions.ToList()
             };
             return View(model);
         }
