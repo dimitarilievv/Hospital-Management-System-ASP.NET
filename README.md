@@ -3,6 +3,8 @@
 The Hospital Management System is a web-based application developed in C# ASP.NET Framework. It uses the MVC pattern and is built using Entity Framework for database interactions.
 The project is designed to help manage hospital operations. Patients can book appointments and view their medical history, doctors can manage schedules and prescriptions, and administrators can oversee users, departments, and appointments. The system ensures smooth and efficient hospital management through role-based access.
 
+https://www.youtube.com/watch?v=04QA57nskfA
+
 ## Technologies Used
 - C# (Backend Logic)
 - ASP.NET MVC (Web Framework)
